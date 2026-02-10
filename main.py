@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from jose import JWTError
 from datetime import datetime, timedelta, date
 import schemas
 from database import get_db, init_db
