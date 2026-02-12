@@ -1,14 +1,17 @@
 from .base import Base
-from .base import BaseModel
-
-# ЭКСПОРТИРУЕМ ТОЛЬКО User!
 from .user import User
+from .patient import Patient
+from .doctor import Doctor
+from .diagnosis import Diagnosis
+from .prescription import Prescription
+from .complaint import Complaint
+from .symptom import Symptom
+from .symptom_category import SymptomCategory
+from .specialization import Specialization
+from .department import Department
 
-# НИЧЕГО БОЛЬШЕ НЕ ЭКСПОРТИРУЕМ!
-# from .patient import Patient
-# from .doctor import Doctor
-# from .appointment import Appointment
-# from .diagnosis import Diagnosis, PatientDiagnosis
-# from .measurement import Measurement
-# from .prescription import Prescription
-# from .complaint import Complaint
+__all__ = [
+    'Base', 'User', 'Patient', 'Doctor', 'Diagnosis',
+    'Prescription', 'Complaint', 'Symptom', 'SymptomCategory',
+    'Specialization', 'Department'
+]

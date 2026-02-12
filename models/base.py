@@ -1,9 +1,9 @@
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Column, Integer, DateTime
 from datetime import datetime
 
-Base = declarative_base()
-
+class Base(DeclarativeBase):
+    pass
 
 class BaseModel:
     id = Column(Integer, primary_key=True, index=True)

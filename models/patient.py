@@ -1,38 +1,29 @@
-from sqlalchemy import Column, String, Date, Float, ForeignKey, Index, Enum as SQLEnum
+from sqlalchemy import Column, String, Date, Float, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from .base import Base, BaseModel  # ЭТО ИМПОРТИРУЕМ Base И BaseModel
+from .base import Base, BaseModel
 import enum
-
+from sqlalchemy import Enum as SQLEnum
 
 class GenderEnum(str, enum.Enum):
     male = 'м'
     female = 'ж'
 
-
-class Patient(Base, BaseModel):  # Теперь Base определен!
+class Patient(Base, BaseModel):
     __tablename__ = "patients"
 
-    surname = Column(String(50), nullable=False, index=True)
-    name = Column(String(50), nullable=False, index=True)
+    surname = Column(String(50), nullable=False)
+    name = Column(String(50), nullable=False)
     patronim = Column(String(50), nullable=True)
     gender = Column(SQLEnum(GenderEnum), nullable=False)
-    birth_date = Column(Date, nullable=False, index=True)
+    birth_date = Column(Date, nullable=False)
     city = Column(String(100), nullable=True)
     street = Column(String(100), nullable=True)
     building = Column(String(20), nullable=True)
-    email = Column(String(100), unique=True, nullable=True, index=True)
-    phone = Column(String(20), unique=True, nullable=True, index=True)
+    email = Column(String(100), unique=True, nullable=False)
+    phone = Column(String(20), nullable=True)
     height = Column(Float, nullable=True)
     weight = Column(Float, nullable=True)
 
     user = relationship("User", back_populates="patient", uselist=False)
-
-    # ВСЕ relationship ЗАКОММЕНТИРОВАНЫ - НЕ ТРОГАЕМ ИХ!
-    # complaints = relationship("Complaint", back_populates="patient")
-    # prescriptions = relationship("Prescription", back_populates="patient")
-    # measurements = relationship("Measurement", back_populates="patient")
-    # patient_diagnoses = relationship("PatientDiagnosis", back_populates="patient")
-
-    __table_args__ = (
-        Index('idx_patients_full_name', 'surname', 'name', 'patronim'),
-    )
+    prescriptions = relationship("Prescription", back_populates="patient")
+    complaints = relationship("Complaint", back_populates="patient")

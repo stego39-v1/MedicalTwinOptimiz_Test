@@ -1,12 +1,13 @@
-from sqlalchemy import Column, String, Integer, Float, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text
 from sqlalchemy.orm import relationship
 from .base import Base, BaseModel
+from datetime import datetime
 
 class Prescription(Base, BaseModel):
     __tablename__ = "prescriptions"
 
-    patient_id = Column(ForeignKey('patients.id'), nullable=False, index=True)
-    doctor_id = Column(ForeignKey('doctors.id'), nullable=False, index=True)
+    patient_id = Column(Integer, ForeignKey('patients.id'), nullable=False)
+    doctor_id = Column(Integer, ForeignKey('doctors.id'), nullable=False)
     medication_name = Column(String(100), nullable=False)
     quantity = Column(Float, nullable=False)
     dose_unit = Column(String(20), nullable=False)
@@ -14,8 +15,8 @@ class Prescription(Base, BaseModel):
     duration_days = Column(Integer, nullable=False)
     start_date = Column(DateTime, nullable=False)
     end_date = Column(DateTime, nullable=True)
-    instructions = Column(String(500), nullable=True)
-    status = Column(String(20), default='активно', nullable=False)
+    instructions = Column(Text, nullable=True)
+    status = Column(String(20), default='активно')
 
     patient = relationship("Patient", back_populates="prescriptions")
     doctor = relationship("Doctor", back_populates="prescriptions")
