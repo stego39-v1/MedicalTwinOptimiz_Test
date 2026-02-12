@@ -1,7 +1,6 @@
-# models/patient.py
 from sqlalchemy import Column, String, Date, Float, ForeignKey, Index, Enum as SQLEnum
 from sqlalchemy.orm import relationship
-from .base import Base, BaseModel
+from .base import Base, BaseModel  # ЭТО ИМПОРТИРУЕМ Base И BaseModel
 import enum
 
 
@@ -10,7 +9,7 @@ class GenderEnum(str, enum.Enum):
     female = 'ж'
 
 
-class Patient(Base, BaseModel):
+class Patient(Base, BaseModel):  # Теперь Base определен!
     __tablename__ = "patients"
 
     surname = Column(String(50), nullable=False, index=True)
@@ -27,11 +26,12 @@ class Patient(Base, BaseModel):
     weight = Column(Float, nullable=True)
 
     user = relationship("User", back_populates="patient", uselist=False)
-    complaints = relationship("Complaint", back_populates="patient")
-    prescriptions = relationship("Prescription", back_populates="patient")
-    measurements = relationship("Measurement", back_populates="patient")
-    # Добавляем если нужны консультации
-    # consultations = relationship("Consultation", back_populates="patient")
+
+    # ВСЕ relationship ЗАКОММЕНТИРОВАНЫ - НЕ ТРОГАЕМ ИХ!
+    # complaints = relationship("Complaint", back_populates="patient")
+    # prescriptions = relationship("Prescription", back_populates="patient")
+    # measurements = relationship("Measurement", back_populates="patient")
+    # patient_diagnoses = relationship("PatientDiagnosis", back_populates="patient")
 
     __table_args__ = (
         Index('idx_patients_full_name', 'surname', 'name', 'patronim'),

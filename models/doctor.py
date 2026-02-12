@@ -17,6 +17,7 @@ class Doctor(Base, BaseModel):
 
     user = relationship("User", back_populates="doctor", uselist=False)
     prescriptions = relationship("Prescription", back_populates="doctor")
+    doctor_appointments = relationship("Appointment", back_populates="doctor")
     # УДАЛИТЕ ЭТУ СТРОКУ: consultations = relationship("Consultation", back_populates="doctor")
 
     __table_args__ = (

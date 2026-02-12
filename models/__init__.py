@@ -1,23 +1,14 @@
-from .base import Base, BaseModel
-from .user import User, RoleEnum
-from .patient import Patient, GenderEnum
-from .doctor import Doctor
-from .prescription import Prescription
-from .measurement import Measurement
-from .complaint import Complaint
-from .diagnosis import Diagnosis, PatientDiagnosis
-from .appointment import Appointment, AppointmentStatus
-from .enums import GenderEnum, StatusEnum, RoleEnum
+from .base import Base
+from .base import BaseModel
 
-__all__ = [
-    'Base', 'BaseModel',
-    'User', 'RoleEnum',
-    'Patient', 'GenderEnum',
-    'Doctor',
-    'Prescription',
-    'Measurement',
-    'Complaint',
-    'Diagnosis', 'PatientDiagnosis',
-    'Appointment', 'AppointmentStatus',
-    'StatusEnum'
-]
+# ЭКСПОРТИРУЕМ ТОЛЬКО User!
+from .user import User
+
+# НИЧЕГО БОЛЬШЕ НЕ ЭКСПОРТИРУЕМ!
+# from .patient import Patient
+# from .doctor import Doctor
+# from .appointment import Appointment
+# from .diagnosis import Diagnosis, PatientDiagnosis
+# from .measurement import Measurement
+# from .prescription import Prescription
+# from .complaint import Complaint

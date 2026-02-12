@@ -25,9 +25,9 @@ class Appointment(Base, BaseModel):
     notes = Column(Text, nullable=True)
     diagnosis_id = Column(Integer, ForeignKey('diagnoses.id'), nullable=True)
 
-    patient = relationship("Patient", back_populates="appointments")
-    doctor = relationship("Doctor", back_populates="appointments")
-    diagnosis = relationship("Diagnosis", back_populates="appointments")
+    patient = relationship("Patient", back_populates="patient_appointments")
+    doctor = relationship("Doctor", back_populates="doctor_appointments")
+    diagnosis = relationship("Diagnosis", back_populates="diagnosis_appointments")
 
     __table_args__ = (
         Index('idx_appointments_doctor_date', 'doctor_id', 'appointment_date'),

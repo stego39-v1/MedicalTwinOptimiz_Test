@@ -1,4 +1,3 @@
-# utils.py
 from datetime import datetime, timedelta
 from typing import Optional, Union, Any
 from jose import JWTError, jwt
@@ -7,7 +6,7 @@ from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 import os
-from database import SessionLocal
+from database import SessionLocal, get_db  # ВАЖНО: импортируем get_db!
 from config import settings
 from models.user import User
 
@@ -57,7 +56,7 @@ def verify_token(token: str) -> dict:
 
 
 # Dependency для получения текущего пользователя
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(SessionLocal)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
